@@ -1,0 +1,22 @@
+{
+  "type": "record",
+  "name": "CustomerInteraction",
+  "namespace": "com.ai_personalization.events",
+  "fields": [
+    { "name": "event_id", "type": "string" },
+    { "name": "customer_id", "type": "string" },
+    { "name": "event_type", "type": "string" },
+    { "name": "timestamp", "type": "long" },
+    { "name": "platform", "type": "string" },
+    { "name": "page_url", "type": ["null", "string"], "default": null },
+    { "name": "product_id", "type": ["null", "string"], "default": null },
+    { "name": "action_value", "type": ["null", "double"], "default": null },
+    {
+      "name": "metadata",
+      "type": {
+        "type": "map",
+        "values": "string"
+      }
+    }
+  ]
+}
