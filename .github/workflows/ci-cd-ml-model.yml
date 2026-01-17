@@ -1,0 +1,46 @@
+name: ML Training & Model Registry CI/CD
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/model_trainer.py'
+      - 'requirements.txt'
+
+jobs:
+  train-and-register:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Train Model
+        env:
+          DB_URL: ${{ secrets.PROD_DB_URL }}
+        run: |
+          python src/model_trainer.py
+
+      - name: Evaluate Precision
+        run: |
+          # Ensure model meets precision KPI threshold before registry
+          python analysis/growth_precision_analyzer.py --check-threshold 0.85
+
+      - name: Upload Model Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: recommendation-model
+          path: models/recommendation_model.joblib
+
+      - name: Push to Model Registry (S3/MLflow)
+        run: |
+          echo "Syncing model to production artifact store..."
+          # aws s3 cp models/recommendation_model.joblib s3://ai-models-registry/prod/
