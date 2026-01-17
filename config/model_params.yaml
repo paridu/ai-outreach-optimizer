@@ -1,0 +1,14 @@
+# Recommendation Model Hyperparameters
+model:
+  no_components: 64
+  loss: 'warp'  # Weighted Approximate-Rank Pairwise loss for ranking
+  learning_rate: 0.05
+  epochs: 30
+  threads: 4
+
+evaluation:
+  k_value: 5
+
+training_pipeline:
+  retention_days: 30
+  min_interactions: 5
