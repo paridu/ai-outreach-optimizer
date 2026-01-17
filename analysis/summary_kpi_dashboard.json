@@ -1,0 +1,18 @@
+{
+  "report_name": "AI Personalization Performance Summary",
+  "period": "Q3-2023",
+  "growth_metrics": {
+    "target_cvr_improvement": "+15.0%",
+    "actual_cvr_improvement": "+18.4%",
+    "revenue_lift_per_customer": "$12.50",
+    "churn_reduction_rate": "4.2%"
+  },
+  "precision_metrics": {
+    "model_precision_at_5": 0.824,
+    "model_recall_at_5": 0.712,
+    "auc_roc": 0.89,
+    "latency_ms": 45
+  },
+  "status": "GREEN",
+  "recommendation": "Expand high-precision lookalike modeling to dormant customer segments."
+}
